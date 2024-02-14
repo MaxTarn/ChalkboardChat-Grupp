@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ChalkBoardChat.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChalkBoardChat.Data.Database
 {
@@ -6,5 +7,6 @@ namespace ChalkBoardChat.Data.Database
     {
         public MessageDbContext(DbContextOptions<MessageDbContext> options) : base(options) { }
 
+        public DbSet<MessageModel> Messages { get; set; }
     }
 }
