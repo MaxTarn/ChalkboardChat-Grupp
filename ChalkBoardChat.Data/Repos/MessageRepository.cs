@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ChalkBoardChat.Data.Repos
 {
-    internal class MessageRepository
+    public class MessageRepository
     {
         private readonly MessageDbContext context;
 
