@@ -24,7 +24,6 @@ namespace ChalkBoardChat.Ui.Pages.Account
         }
         public async Task<IActionResult> OnPost()
         {
-            //var ue = Username;
             IdentityUser? UserToLogIn = await _userManager.FindByNameAsync(Username);
             if (UserToLogIn != null)
             {
@@ -32,7 +31,7 @@ namespace ChalkBoardChat.Ui.Pages.Account
 
                 if (signInResult.Succeeded)
                 {
-                    //Om dirrigera användare till Members-sidan
+
                     return RedirectToPage("/Posts/Index");
                 }
                 else
