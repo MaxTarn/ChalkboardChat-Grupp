@@ -1,3 +1,7 @@
+using ChalkBoardChat.Data.Database;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 namespace ChalkBoardChat.ui
 {
     public class Program
@@ -8,6 +12,13 @@ namespace ChalkBoardChat.ui
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            var authConnectionString = builder.Configuration.GetConnectionString("AuthConnection");
+            var connectionString = builder.Configuration.GetConnectionString("MessageConnection");
+
+            builder.Services.AddDbContext<AuthDbContext>(options => options.UseSqlServer(authConnectionString, b => b.MigrationsAssembly("ChalkBoardChat.Ui")));
+            builder.Services.AddDbContext<MessageDbContext>(options => options.UseSqlServer(connectionString, b => b.MigrationsAssembly("ChalkBoardChat.Ui")));
+
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AuthDbContext>();
 
             var app = builder.Build();
 
@@ -24,6 +35,7 @@ namespace ChalkBoardChat.ui
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapRazorPages();
