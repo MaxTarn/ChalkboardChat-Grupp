@@ -32,6 +32,10 @@ namespace ChalkBoardChat.Data.Repos
         {
             return await context.Messages.ToListAsync();
         }
+        public async Task<List<MessageModel>> GetAllDescendingAsync()
+        {
+            return await context.Messages.OrderByDescending(x => x.Date).ToListAsync();
+        }
 
         public async Task UpdateAsync(MessageModel entity)
         {
