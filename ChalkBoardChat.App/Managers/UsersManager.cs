@@ -22,15 +22,21 @@ namespace ChalkBoardChat.App.Managers
 
 
 
-        public async Task<bool> CheckIfUserExists(string userName)
+
+
+        public async Task<bool> CheckIfUserExists(string? userName)
+ main
         {
+            if (string.IsNullOrEmpty(userName)) return false;
             IdentityUser? user = await _userManager.Users.FirstOrDefaultAsync(usr => usr.UserName == userName);
             if (user == null) return false;
             return true;
         }
 
-        public async Task<IdentityResult> AddUser(string userName, string password)
+        public async Task<IdentityResult?> AddUser(string? userName, string? password)
         {
+            if (string.IsNullOrEmpty(userName)) return null;
+            if (string.IsNullOrEmpty(password)) return null;
             var user = new IdentityUser { UserName = userName };
 
             IdentityResult result = await _userManager.CreateAsync(user, password);
@@ -39,15 +45,19 @@ namespace ChalkBoardChat.App.Managers
 
         }
 
-        public async Task<IdentityResult?> DeleteByUserName(string userName)
+        public async Task<IdentityResult?> DeleteByUserName(string? userName)
         {
             IdentityUser? usertoDelete = await _userManager.FindByNameAsync(userName);
             if (usertoDelete == null) return null;
             return await _userManager.DeleteAsync(usertoDelete);
         }
 
-        public async Task<SignInResult?> SignInUser(string username, string password, bool rememberUser = false, bool lockOutUser = false)
+
+        public async Task<SignInResult?> SignInUser(string? username, string? password, bool rememberUser = false, bool lockOutUser = false)
+main
         {
+            if (string.IsNullOrEmpty(username)) return null;
+            if (string.IsNullOrEmpty(password)) return null;
             SignInResult? result = await _signInManager.PasswordSignInAsync(username, password, rememberUser, lockOutUser);
             return result;
         }
