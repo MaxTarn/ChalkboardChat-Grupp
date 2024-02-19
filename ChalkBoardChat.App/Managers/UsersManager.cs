@@ -1,12 +1,6 @@
 ﻿using ChalkBoardChat.Data.Database;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChalkBoardChat.App.Managers
 {
@@ -29,7 +23,9 @@ namespace ChalkBoardChat.App.Managers
 
 
 
+
         public async Task<bool> CheckIfUserExists(string? userName)
+ main
         {
             if (string.IsNullOrEmpty(userName)) return false;
             IdentityUser? user = await _userManager.Users.FirstOrDefaultAsync(usr => usr.UserName == userName);
@@ -56,7 +52,9 @@ namespace ChalkBoardChat.App.Managers
             return await _userManager.DeleteAsync(usertoDelete);
         }
 
+
         public async Task<SignInResult?> SignInUser(string? username, string? password, bool rememberUser = false, bool lockOutUser = false)
+main
         {
             if (string.IsNullOrEmpty(username)) return null;
             if (string.IsNullOrEmpty(password)) return null;
