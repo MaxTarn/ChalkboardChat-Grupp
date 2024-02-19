@@ -28,20 +28,15 @@ namespace ChalkBoardChat.Ui.Pages.Account
         {
             UsersManager user = new(_authDbContext, _userManager, _signInManager);
 
-            if (await user.CheckIfUserExists(Username))
-            {
-                return Page(); // om användare finns
-            }
+            if (await user.CheckIfUserExists(Username)) { return Page(); }  // om användare finns 
+
             else
             {
                 var createuser2 = await user.AddUser(Username, Password);
 
                 if (createuser2.Succeeded)
                 {
-
-                    return RedirectToPage("Account/login"); //dirigera om användare till Post sidan
-
-
+                    return RedirectToPage("/Account/Login"); //dirigera om användare till Post sidan
                 }
                 else
                 {

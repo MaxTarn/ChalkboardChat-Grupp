@@ -1,3 +1,5 @@
+using ChalkBoardChat.App.Managers;
+using ChalkBoardChat.Data.Database;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,12 +11,14 @@ namespace ChalkBoardChat.Ui.Pages.Account
     {
         private SignInManager<IdentityUser> _signInManager;
         private UserManager<IdentityUser> _userManager;
+        private readonly AuthDbContext _authDbContext;
 
-
-        public LoginModel(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+        public LoginModel(AuthDbContext authContext, SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _authDbContext = authContext;
+
         }
         public string? Username { get; set; }
         public string? Password { get; set; }
@@ -24,19 +28,13 @@ namespace ChalkBoardChat.Ui.Pages.Account
         }
         public async Task<IActionResult> OnPost()
         {
-            IdentityUser? UserToLogIn = await _userManager.FindByNameAsync(Username);
-            if (UserToLogIn != null)
+            UsersManager user = new(_authDbContext, _userManager, _signInManager);
+            if (await user.CheckIfUserExists(Username))
             {
-                var signInResult = await _signInManager.PasswordSignInAsync(UserToLogIn, Password, false, false);
-
-                if (signInResult.Succeeded)
+                var signinResult = await user.SignInUser(Username, Password);
+                if (signinResult != null && signinResult.Succeeded)
                 {
-
                     return RedirectToPage("/Posts/Index");
-                }
-                else
-                {
-                    //fel lössenord
                 }
             }
             return Page();

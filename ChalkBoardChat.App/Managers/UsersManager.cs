@@ -46,7 +46,7 @@ namespace ChalkBoardChat.App.Managers
             return await _userManager.DeleteAsync(usertoDelete);
         }
 
-        public async Task<SignInResult?> SignInUser(string username, string password, bool rememberUser = true, bool lockOutUser = false)
+        public async Task<SignInResult?> SignInUser(string username, string password, bool rememberUser = false, bool lockOutUser = false)
         {
             SignInResult? result = await _signInManager.PasswordSignInAsync(username, password, rememberUser, lockOutUser);
             return result;
