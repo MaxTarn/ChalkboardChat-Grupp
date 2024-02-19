@@ -1,12 +1,6 @@
 ﻿using ChalkBoardChat.Data.Database;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChalkBoardChat.App.Managers
 {
@@ -24,7 +18,6 @@ namespace ChalkBoardChat.App.Managers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
 
 
 
