@@ -20,12 +20,8 @@ namespace ChalkBoardChat.App.Managers
         }
 
 
-
-
-
-
         public async Task<bool> CheckIfUserExists(string? userName)
- main
+
         {
             if (string.IsNullOrEmpty(userName)) return false;
             IdentityUser? user = await _userManager.Users.FirstOrDefaultAsync(usr => usr.UserName == userName);
@@ -54,7 +50,7 @@ namespace ChalkBoardChat.App.Managers
 
 
         public async Task<SignInResult?> SignInUser(string? username, string? password, bool rememberUser = false, bool lockOutUser = false)
-main
+
         {
             if (string.IsNullOrEmpty(username)) return null;
             if (string.IsNullOrEmpty(password)) return null;
